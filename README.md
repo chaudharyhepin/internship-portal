@@ -6,7 +6,7 @@ A full-stack **Internship Portal** built using the **MERN stack**, where student
 
 ## 🔗 Live Demo
 
-- **Frontend (Netlify):** https://gleaming-clafoutis-3a05bb.netlify.app  
+- **Frontend (Netlify):** https://internlyst.netlify.app 
 - **Backend (Render):** https://internship-portal-backend-6rv5.onrender.com  
 
 ---
