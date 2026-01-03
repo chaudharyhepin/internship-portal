@@ -101,10 +101,13 @@ function Internships() {
           </p>
 
           {user?.role === "student" && (
-            <div className="mt-4 flex flex-col gap-2">
+            <div className="mt-4 flex flex-col gap-3">
+              {/* Hidden file input */}
               <input
                 type="file"
                 accept="application/pdf"
+                id={`resume-${i._id}`}
+                className="hidden"
                 onChange={(e) =>
                   setResumeFile((prev) => ({
                     ...prev,
@@ -113,9 +116,25 @@ function Internships() {
                 }
               />
 
+              {/* Custom upload button */}
+              <label
+                htmlFor={`resume-${i._id}`}
+                className="cursor-pointer inline-flex items-center justify-center gap-2 px-4 py-2 border border-blue-500 text-blue-600 rounded-md hover:bg-blue-50 transition"
+              >
+                📄 Upload Resume (PDF)
+              </label>
+
+              {/* Selected file name */}
+              {resumeFile[i._id] && (
+                <p className="text-sm text-gray-600">
+                  Selected: {resumeFile[i._id].name}
+                </p>
+              )}
+
+              {/* Apply button */}
               <button
                 onClick={() => applyInternship(i._id)}
-                className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+                className="w-full px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition"
               >
                 Apply
               </button>
