@@ -1,82 +1,61 @@
-🎓 Internship Portal – MERN Stack
+# 🎓 Internship Portal – MERN Stack
 
-A full-stack Internship Portal built using the MERN stack, where students can apply for internships, upload resumes, and track applications, while companies can post internships and manage applicants.
+A full-stack **Internship Portal** built using the **MERN stack**, where students can apply for internships, upload resumes, and track applications, while companies can post internships and manage applicants.
 
-🔗 Live Demo
+---
 
-Frontend (Netlify): https://gleaming-clafoutis-3a05bb.netlify.app
+## 🔗 Live Demo
 
-Backend (Render): https://internship-portal-backend-6rv5.onrender.com
+- **Frontend (Netlify):** https://gleaming-clafoutis-3a05bb.netlify.app  
+- **Backend (Render):** https://internship-portal-backend-6rv5.onrender.com  
 
-🚀 Features
-👨‍🎓 Student
+---
 
-Register & login with authentication (JWT)
+## 🚀 Features
 
-Browse available internships
+### 👨‍🎓 Student
+- Register & login with JWT authentication
+- Browse available internships
+- Search & filter internships
+- Apply for internships with **resume upload (PDF)**
+- View applied internships
+- Withdraw applications
 
-Search & filter internships
+### 🏢 Company
+- Register & login
+- Post new internships
+- View applicants for posted internships
+- Access student details and uploaded resumes
 
-Apply for internships with resume upload (PDF)
+---
 
-View applied internships
+## 🛠️ Tech Stack
 
-Withdraw applications
+### Frontend
+- React (Vite)
+- Tailwind CSS
+- Axios
+- React Router DOM
 
-🏢 Company
+### Backend
+- Node.js
+- Express.js
+- MongoDB & Mongoose
+- JWT Authentication
+- Multer (Resume Upload)
 
-Register & login
+---
 
-Post new internships
+## 🚀 Deployment
 
-View applicants for posted internships
+- **Frontend:** Netlify
+- **Backend:** Render
+- **Database:** MongoDB Atlas
 
-Access student details and resumes
+---
 
-🔐 Authentication & Security
+## 📂 Project Structure
 
-Role-based access (Student / Company)
-
-Secure JWT authentication
-
-Unique email constraint
-
-Protected routes (frontend & backend)
-
-🛠️ Tech Stack
-Frontend
-
-React (Vite)
-
-Tailwind CSS
-
-Axios
-
-React Router DOM
-
-Backend
-
-Node.js
-
-Express.js
-
-MongoDB & Mongoose
-
-JWT Authentication
-
-Multer (Resume Upload)
-
-Deployment
-
-Frontend: Netlify
-
-Backend: Render
-
-Database: MongoDB Atlas
-
-Version Control: Git & GitHub
-
-📂 Project Structure
 internship-portal/
 │
 ├── backend/
@@ -94,35 +73,57 @@ internship-portal/
 │
 └── README.md
 
-⚙️ Environment Variables
-Backend (backend/.env)
+---
+
+## ⚙️ Environment Variables
+
+### Backend (`backend/.env`)
+```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
+```
 
-Frontend (Netlify Environment Variables)
+### Frontend (Netlify Environment Variables)
+```env
 VITE_API_URL=https://internship-portal-backend-6rv5.onrender.com
+```
 
-🧪 Run Locally
-1️⃣ Clone the repository
+---
+
+## 🧪 Run Locally
+
+### 1️⃣ Clone the repository
+```bash
 git clone https://github.com/chaudharyhepin/internship-portal.git
 cd internship-portal
+```
 
-2️⃣ Backend Setup
+### 2️⃣ Backend Setup
+```bash
 cd backend
 npm install
 npm run dev
+```
 
-3️⃣ Frontend Setup
+### 3️⃣ Frontend Setup
+```bash
 cd frontend
 npm install
 npm run dev
+```
 
-📦 Build Frontend for Production
+---
+
+## 📦 Build Frontend for Production
+```bash
 cd frontend
 npm run build
+```
 
-🖼️ Screenshots
+---
+
+## 🖼️ Screenshots
 
 Student Dashboard
 
@@ -134,27 +135,28 @@ Company Applicant View
 
 (You can add screenshots later to improve visibility)
 
-🎯 Future Enhancements
+---
 
-Application status tracking (Accepted / Rejected)
+## 🎯 Future Enhancements
 
-Email notifications
+- Application status tracking (Accepted / Rejected)
+- Email notifications
+- Admin dashboard
+- Resume preview/download
+- Pagination & performance optimization
 
-Admin dashboard
+---
 
-Resume preview/download
+## 👤 Author
 
-Pagination & performance optimization
+Hepin Chaudhary  
+📧 Email: chaudharyhepin2006@gmail.com  
 
-👤 Author
+🔗 GitHub: https://github.com/chaudharyhepin  
+🔗 LinkedIn: https://linkedin.com/in/chaudharyhepin  
 
-Hepin Chaudhary
-📧 Email: chaudharyhepin2006@gmail.com
+---
 
-🔗 GitHub: https://github.com/chaudharyhepin
-
-🔗 LinkedIn: https://linkedin.com/in/chaudharyhepin
-
-⭐ If you like this project
+## ⭐ If you like this project
 
 Give it a ⭐ on GitHub — it helps a lot!
