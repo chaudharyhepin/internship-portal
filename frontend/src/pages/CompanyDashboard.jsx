@@ -177,7 +177,7 @@ function CompanyDashboard() {
               {/* View Resume Link */}
               {app.resume && (
                 <a
-                  href={`http://localhost:5000/${app.resume}`}
+                  href={`https://internship-portal-backend-6rv5.onrender.com/${app.resume}`}
                   target="_blank"
                   rel="noreferrer"
                   className="text-blue-600 underline mt-2 inline-block"
