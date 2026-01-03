@@ -95,10 +95,34 @@ function Internships() {
       {availableInternships.map((i) => (
         <div key={i._id} className="border rounded p-5 mb-4 shadow-sm">
           <h3 className="text-xl font-semibold">{i.title}</h3>
+
           <p className="text-gray-600">{i.description}</p>
+
           <p className="text-sm mt-2 text-gray-500">
             Company: {i.company.name}
           </p>
+
+          <div className="mt-2 text-sm text-gray-600">
+            <p>
+              <strong>Duration:</strong> {i.duration}
+            </p>
+            <p>
+              <strong>Mode:</strong> {i.mode}
+            </p>
+          </div>
+
+          {i.skills && i.skills.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {i.skills.map((skill, index) => (
+                <span
+                  key={index}
+                  className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          )}
 
           {user?.role === "student" && (
             <div className="mt-4 flex flex-col gap-3">

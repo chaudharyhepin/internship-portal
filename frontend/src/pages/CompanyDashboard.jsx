@@ -5,6 +5,9 @@ function CompanyDashboard() {
   const [activeTab, setActiveTab] = useState("post");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [duration, setDuration] = useState("");
+  const [mode, setMode] = useState("");
+  const [skills, setSkills] = useState("");
   const [applications, setApplications] = useState([]);
   const [internships, setInternships] = useState([]);
 
@@ -31,16 +34,26 @@ function CompanyDashboard() {
   const handlePostInternship = async (e) => {
     e.preventDefault();
 
-    if (!title || !description) {
+    if (!title || !description || !duration || !mode || !skills) {
       alert("Please fill all fields");
       return;
     }
 
     try {
-      await API.post("/internships", { title, description });
+      await API.post("/internships", {
+        title,
+        description,
+        duration,
+        mode,
+        skills: skills.split(",").map((s) => s.trim()),
+      });
+
       alert("Internship posted successfully");
       setTitle("");
       setDescription("");
+      setDuration("");
+      setMode("");
+      setSkills("");
     } catch {
       alert("Failed to post internship");
     }
@@ -129,6 +142,31 @@ function CompanyDashboard() {
               placeholder="Internship Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+            />
+
+            <input
+              className="w-full border p-2 mb-3 rounded"
+              placeholder="Duration (e.g. 3 Months)"
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+            />
+
+            <select
+              className="w-full border p-2 mb-3 rounded"
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+            >
+              <option value="">Select Mode</option>
+              <option value="Remote">Remote</option>
+              <option value="On-site">On-site</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+
+            <input
+              className="w-full border p-2 mb-4 rounded"
+              placeholder="Skills (comma separated)"
+              value={skills}
+              onChange={(e) => setSkills(e.target.value)}
             />
 
             <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">

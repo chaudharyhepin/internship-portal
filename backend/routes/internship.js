@@ -12,6 +12,9 @@ router.post("/", authMiddleware, async (req, res) => {
   const internship = new Internship({
     title: req.body.title,
     description: req.body.description,
+    duration: req.body.duration,
+    mode: req.body.mode,
+    skills: req.body.skills,
     company: req.user.id,
   });
 
