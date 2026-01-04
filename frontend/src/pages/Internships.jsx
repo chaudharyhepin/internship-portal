@@ -3,6 +3,7 @@ import API from "../services/api";
 import { AuthContext } from "../context/AuthContext";
 
 function Internships() {
+  const [loading, setLoading] = useState(true);
   const [internships, setInternships] = useState([]);
   const [appliedIds, setAppliedIds] = useState([]);
   const { user } = useContext(AuthContext);
@@ -12,14 +13,18 @@ function Internships() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const internshipsRes = await API.get("/internships");
-      setInternships(internshipsRes.data);
+      try {
+        const internshipsRes = await API.get("/internships");
+        setInternships(internshipsRes.data);
 
-      if (user?.role === "student") {
-        const appliedRes = await API.get("/applications/student");
-
-        // ✅ FIX: store ONLY internship IDs
-        setAppliedIds(appliedRes.data.map((a) => a.internship._id));
+        if (user?.role === "student") {
+          const appliedRes = await API.get("/applications/student");
+          setAppliedIds(appliedRes.data.map((a) => a.internship._id));
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -92,86 +97,85 @@ function Internships() {
         />
       </div>
 
-      {availableInternships.map((i) => (
-        <div key={i._id} className="border rounded p-5 mb-4 shadow-sm">
-          <h3 className="text-xl font-semibold">{i.title}</h3>
-
-          <p className="text-gray-600">{i.description}</p>
-
-          <p className="text-sm mt-2 text-gray-500">
-            Company: {i.company.name}
-          </p>
-
-          <div className="mt-2 text-sm text-gray-600">
-            <p>
-              <strong>Duration:</strong> {i.duration}
-            </p>
-            <p>
-              <strong>Mode:</strong> {i.mode}
-            </p>
-          </div>
-
-          {i.skills && i.skills.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-2">
-              {i.skills.map((skill, index) => (
-                <span
-                  key={index}
-                  className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {user?.role === "student" && (
-            <div className="mt-4 flex flex-col gap-3">
-              {/* Hidden file input */}
-              <input
-                type="file"
-                accept="application/pdf"
-                id={`resume-${i._id}`}
-                className="hidden"
-                onChange={(e) =>
-                  setResumeFile((prev) => ({
-                    ...prev,
-                    [i._id]: e.target.files[0],
-                  }))
-                }
-              />
-
-              {/* Custom upload button */}
-              <label
-                htmlFor={`resume-${i._id}`}
-                className="cursor-pointer inline-flex items-center justify-center gap-2 px-4 py-2 border border-blue-500 text-blue-600 rounded-md hover:bg-blue-50 transition"
-              >
-                📄 Upload Resume (PDF)
-              </label>
-
-              {/* Selected file name */}
-              {resumeFile[i._id] && (
-                <p className="text-sm text-gray-600">
-                  Selected: {resumeFile[i._id].name}
-                </p>
-              )}
-
-              {/* Apply button */}
-              <button
-                onClick={() => applyInternship(i._id)}
-                className="w-full px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition"
-              >
-                Apply
-              </button>
-            </div>
-          )}
-        </div>
-      ))}
-
-      {/* Empty State */}
-      {availableInternships.length === 0 && (
+      {loading ? (
+        <p className="text-center text-gray-500 mt-10">
+          Loading internships...
+        </p>
+      ) : availableInternships.length === 0 ? (
         <p className="text-gray-500 text-center mt-10">
           No new internships available right now.
         </p>
+      ) : (
+        availableInternships.map((i) => (
+          <div key={i._id} className="border rounded p-5 mb-4 shadow-sm">
+            <h3 className="text-xl font-semibold">{i.title}</h3>
+
+            <p className="text-gray-600">{i.description}</p>
+
+            <p className="text-sm mt-2 text-gray-500">
+              Company: {i.company.name}
+            </p>
+
+            <div className="mt-2 text-sm text-gray-600">
+              <p>
+                <strong>Duration:</strong> {i.duration}
+              </p>
+              <p>
+                <strong>Mode:</strong> {i.mode}
+              </p>
+            </div>
+
+            {i.skills && i.skills.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {i.skills.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {user?.role === "student" && (
+              <div className="mt-4 flex flex-col gap-3">
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  id={`resume-${i._id}`}
+                  className="hidden"
+                  onChange={(e) =>
+                    setResumeFile((prev) => ({
+                      ...prev,
+                      [i._id]: e.target.files[0],
+                    }))
+                  }
+                />
+
+                <label
+                  htmlFor={`resume-${i._id}`}
+                  className="cursor-pointer inline-flex items-center justify-center gap-2 px-4 py-2 border border-blue-500 text-blue-600 rounded-md hover:bg-blue-50 transition"
+                >
+                  📄 Upload Resume (PDF)
+                </label>
+
+                {resumeFile[i._id] && (
+                  <p className="text-sm text-gray-600">
+                    Selected: {resumeFile[i._id].name}
+                  </p>
+                )}
+
+                <button
+                  onClick={() => applyInternship(i._id)}
+                  className="w-full px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition"
+                >
+                  Apply
+                </button>
+              </div>
+            )}
+          </div>
+        ))
       )}
     </div>
   );

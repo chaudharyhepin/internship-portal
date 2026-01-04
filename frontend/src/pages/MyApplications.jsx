@@ -3,11 +3,18 @@ import API from "../services/api";
 
 function MyApplications() {
   const [applications, setApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchApplications = async () => {
-      const res = await API.get("/applications/student");
-      setApplications(res.data);
+      try {
+        const res = await API.get("/applications/student");
+        setApplications(res.data);
+      } catch (err) {
+        console.error("Failed to fetch applications", err);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchApplications();
   }, []);
@@ -22,12 +29,20 @@ function MyApplications() {
     try {
       await API.delete(`/applications/withdraw/${internshipId}`);
       setApplications((prev) =>
-        prev.filter((app) => app.internship._id !== internshipId)
+        prev.filter((app) => app.internship?._id !== internshipId)
       );
     } catch {
       alert("Failed to withdraw application");
     }
   };
+
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto p-6 text-center text-gray-500">
+        Loading your applications...
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -62,9 +77,9 @@ function MyApplications() {
               Status: {app.status}
             </span>
 
-            {app.status === "Pending" && (
+            {app.status === "Pending" && app.internship && (
               <button
-                onClick={() => withdrawApplication(app.internship._id)}
+                onClick={() => withdrawApplication(app.internship?._id)}
                 className="ml-auto px-4 py-2 rounded bg-yellow-500 text-white hover:bg-yellow-600"
               >
                 Withdraw
