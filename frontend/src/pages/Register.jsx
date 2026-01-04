@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 function Register() {
   const navigate = useNavigate();
 
+  const [emailError, setEmailError] = useState("");
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -13,11 +15,28 @@ function Register() {
   });
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setForm({ ...form, [name]: value });
+
+    if (name === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(value)) {
+        setEmailError("Please enter a valid email address");
+      } else {
+        setEmailError("");
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (emailError) {
+      alert("Please fix the email error before submitting");
+      return;
+    }
 
     try {
       await API.post("/auth/register", form);
@@ -48,12 +67,23 @@ function Register() {
         onChange={handleChange}
       />
 
-      <input
+      {/* <input
         name="email"
         className="w-full border p-2 mb-3 rounded"
         placeholder="Email"
         onChange={handleChange}
+      /> */}
+
+      <input
+        name="email"
+        type="email"
+        className="w-full border p-2 mb-1 rounded"
+        placeholder="Email"
+        onChange={handleChange}
+        required
       />
+
+      {emailError && <p className="text-red-500 text-sm mb-2">{emailError}</p>}
 
       <input
         name="password"
