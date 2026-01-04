@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import API from "../services/api";
 
@@ -6,6 +7,8 @@ function Login() {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,9 +19,9 @@ function Login() {
     login(res.data.user);
 
     if (res.data.user.role === "student") {
-      window.location.href = "/student";
+      navigate("/student", { replace: true });
     } else {
-      window.location.href = "/company";
+      navigate("/company", { replace: true });
     }
   };
 
