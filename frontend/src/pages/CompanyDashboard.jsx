@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import { toast } from "react-toastify";
 
 function CompanyDashboard() {
   const [activeTab, setActiveTab] = useState("post");
@@ -35,7 +36,7 @@ function CompanyDashboard() {
     e.preventDefault();
 
     if (!title || !description || !duration || !mode || !skills) {
-      alert("Please fill all fields");
+      toast.error("Please fill all fields");
       return;
     }
 
@@ -48,14 +49,14 @@ function CompanyDashboard() {
         skills: skills.split(",").map((s) => s.trim()),
       });
 
-      alert("Internship posted successfully");
+      toast.success("Internship posted successfully");
       setTitle("");
       setDescription("");
       setDuration("");
       setMode("");
       setSkills("");
     } catch {
-      alert("Failed to post internship");
+      toast.error("Failed to post internship");
     }
   };
 
@@ -67,7 +68,7 @@ function CompanyDashboard() {
         prev.map((app) => (app._id === id ? res.data : app))
       );
     } catch {
-      alert("Failed to update status");
+      toast.error("Failed to update status");
     }
   };
 
@@ -77,7 +78,7 @@ function CompanyDashboard() {
 
       setInternships((prev) => prev.map((i) => (i._id === id ? res.data : i)));
     } catch {
-      alert("Failed to close internship");
+      toast.error("Failed to close internship");
     }
   };
 
@@ -215,7 +216,9 @@ function CompanyDashboard() {
               {/* View Resume Link */}
               {app.resume && (
                 <a
-                  href={`https://internship-portal-backend-6rv5.onrender.com/${app.resume}`}
+                  href={`${import.meta.env.VITE_API_URL.replace("/api", "")}/${
+                    app.resume
+                  }`}
                   target="_blank"
                   rel="noreferrer"
                   className="text-blue-600 underline mt-2 inline-block"
