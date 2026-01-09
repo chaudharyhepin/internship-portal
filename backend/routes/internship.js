@@ -27,23 +27,6 @@ router.get("/", async (req, res) => {
   res.json(internships);
 });
 
-router.get("/:id", async (req, res) => {
-  try {
-    const internship = await Internship.findById(req.params.id).populate(
-      "company",
-      "name"
-    );
-
-    if (!internship) {
-      return res.status(404).json({ message: "Internship not found" });
-    }
-
-    res.json(internship);
-  } catch (error) {
-    res.status(400).json({ message: "Invalid internship ID" });
-  }
-});
-
 router.put("/close/:id", authMiddleware, async (req, res) => {
   if (req.user.role !== "company") {
     return res.status(403).json({ message: "Access denied" });
@@ -72,6 +55,23 @@ router.get("/company", authMiddleware, async (req, res) => {
   });
 
   res.json(internships);
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const internship = await Internship.findById(req.params.id).populate(
+      "company",
+      "name"
+    );
+
+    if (!internship) {
+      return res.status(404).json({ message: "Internship not found" });
+    }
+
+    res.json(internship);
+  } catch (error) {
+    res.status(400).json({ message: "Invalid internship ID" });
+  }
 });
 
 module.exports = router;
