@@ -10,7 +10,6 @@ function Internships() {
   const { user } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [companyFilter, setCompanyFilter] = useState("");
-  const [resumeFile, setResumeFile] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
