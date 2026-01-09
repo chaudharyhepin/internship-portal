@@ -8,6 +8,9 @@ import CompanyDashboard from "./pages/CompanyDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import InternshipDetails from "./pages/InternshipDetails";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -37,6 +40,15 @@ function App() {
         />
 
         <Route
+          path="/internship/:id"
+          element={
+            <ProtectedRoute allowedRoles={["student"]}>
+              <InternshipDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
           path="/my-applications"
           element={
             <ProtectedRoute allowedRoles={["student"]}>
@@ -54,6 +66,13 @@ function App() {
           }
         />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+      />
     </BrowserRouter>
   );
 }

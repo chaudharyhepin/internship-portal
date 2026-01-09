@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://internship-portal-backend-6rv5.onrender.com/api",
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 API.interceptors.request.use((req) => {
