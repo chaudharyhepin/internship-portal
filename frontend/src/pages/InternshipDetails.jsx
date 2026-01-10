@@ -180,7 +180,7 @@ function InternshipDetails() {
 
                   <span
                     className={`px-3 py-1 text-sm rounded-full font-medium ${
-                      applicationStatus === "Accepted"
+                      applicationStatus === "Selected"
                         ? "bg-green-100 text-green-700"
                         : applicationStatus === "Rejected"
                         ? "bg-red-100 text-red-700"

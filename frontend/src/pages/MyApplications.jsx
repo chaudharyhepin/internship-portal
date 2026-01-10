@@ -92,7 +92,7 @@ function MyApplications() {
             {/* Status Badge */}
             <span
               className={`px-3 py-1 text-sm rounded-full font-medium ${
-                app.status === "Accepted"
+                app.status === "Selected"
                   ? "bg-green-100 text-green-700"
                   : app.status === "Rejected"
                   ? "bg-red-100 text-red-700"

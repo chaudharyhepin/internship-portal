@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Internships from "./pages/Internships";
 import MyApplications from "./pages/MyApplications";
+import InternshipApplicants from "./pages/InternshipApplicants";
 import CompanyDashboard from "./pages/CompanyDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -46,6 +47,11 @@ function App() {
               <InternshipDetails />
             </ProtectedRoute>
           }
+        />
+
+        <Route
+          path="/company/internships/:id/applicants"
+          element={<InternshipApplicants />}
         />
 
         <Route

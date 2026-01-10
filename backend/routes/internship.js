@@ -1,6 +1,7 @@
 const express = require("express");
 const Internship = require("../models/Internship");
 const authMiddleware = require("../middleware/authMiddleware");
+const Application = require("../models/Application");
 
 const router = express.Router();
 
@@ -52,7 +53,13 @@ router.get("/company", authMiddleware, async (req, res) => {
 
   const internships = await Internship.find({
     company: req.user.id,
-  });
+  }).lean();
+
+  for (let internship of internships) {
+    internship.applicantCount = await Application.countDocuments({
+      internship: internship._id,
+    });
+  }
 
   res.json(internships);
 });
